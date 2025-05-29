@@ -4,20 +4,17 @@ const chatBox = document.getElementById("chat-box");
 
 chatForm.addEventListener("submit", function (e) {
   e.preventDefault();
-  
+
   const message = userInput.value.trim();
   if (message === "") return;
 
-  // Append user's message
   appendMessage("user", message);
-
   userInput.value = "";
 
-  // Simulate bot response
   setTimeout(() => {
-    const botReply = generateBotResponse(message);
+    const botReply = getBotReply(message);
     appendMessage("bot", botReply);
-  }, 800);
+  }, 600);
 });
 
 function appendMessage(sender, text) {
@@ -28,16 +25,22 @@ function appendMessage(sender, text) {
   chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-function generateBotResponse(userMessage) {
-  // You can customize this logic for smarter replies
-  const replies = [
-    "That's interesting!",
-    "Can you tell me more?",
-    "I'm here to help.",
-    "Hmm... Let me think about that.",
-    "Could you explain that a bit differently?",
-    "I see. Go on.",
-    "Tell me more!"
-  ];
-  return replies[Math.floor(Math.random() * replies.length)];
+function getBotReply(input) {
+  const msg = input.toLowerCase();
+
+  if (msg.includes("hello") || msg.includes("hi")) {
+    return "Hi there! 👋 How can I help you today?";
+  } else if (msg.includes("your name")) {
+    return "I'm ChatBot, your virtual assistant.";
+  } else if (msg.includes("how are you")) {
+    return "I'm just code, but thanks for asking! 😊";
+  } else if (msg.includes("weather")) {
+    return "I'm not connected to the internet, but it looks great in here!";
+  } else if (msg.includes("bye")) {
+    return "Goodbye! Have a great day! 👋";
+  } else if (msg.includes("help")) {
+    return "Sure! Ask me about my name, how I feel, or say hello.";
+  } else {
+    return "I'm not sure how to respond to that yet. 🤖";
+  }
 }
